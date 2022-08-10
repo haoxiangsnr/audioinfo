@@ -80,11 +80,14 @@ def duration_str(duration) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        prog="audioinfo", description="A tool to check audio file durations in a directory."
+        prog="audioinfo",
+        description="A tool to check the durations of audio files in a directory.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "--directory",
         "-d",
+        default="./",
         help="The directory to search",
     )
     parser.add_argument(

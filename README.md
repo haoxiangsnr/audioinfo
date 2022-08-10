@@ -17,22 +17,33 @@ $ audioinfo --help
 
 usage: audioinfo [-h] [--directory DIRECTORY] [--ext EXT [EXT ...]] [--recurse] [--case-sensitive]
 
-A tool to check audio file durations in a directory.
+A tool to check the durations of audio files in a directory.
 
 options:
   -h, --help            show this help message and exit
   --directory DIRECTORY, -d DIRECTORY
-                        The directory to search
+                        The directory to search (default: ./)
   --ext EXT [EXT ...], -e EXT [EXT ...]
-                        The extension to search for
-  --recurse, -r         Recurse into subdirectories
-  --case-sensitive, -c  Case sensitive search
+                        The extension to search for (default: wav)
+  --recurse, -r         Recurse into subdirectories (default: True)
+  --case-sensitive, -c  Case sensitive search (default: False)
 ```
 
 ## Examples
 
+Check all audio files with the ".wav" in the current directory:
 
-Check all audio files with the ".wav" suffix in the directory "~/Music":
+```bash
+audioinfo --directory ./ --ext wav
+```
+
+The default directory is the current directory and the default extension is ".wav". Therefore you may precisely omit these options, like this:
+
+```bash
+audioinfo
+```
+
+Check all audio files with the ".wav"  in the directory "~/Music":
 
 ```bash
 audioinfo --directory ~/Music --ext wav
