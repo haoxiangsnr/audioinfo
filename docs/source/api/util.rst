@@ -1,0 +1,1 @@
+.. automodule:: audioinfo.util

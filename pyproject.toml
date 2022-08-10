@@ -1,0 +1,44 @@
+# ----------------- Build System -----------------
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+# ----------------- Metadata -----------------
+[project]
+name = "audioinfo"
+description = "Count audio files in a directory."
+authors = [{ name = "HAO Xiang", email = "haoxiangsnr@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.10"
+version = "0.0.0"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Development Status :: 2 - Pre-Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: GPU :: NVIDIA CUDA",
+    "Operating System :: OS Independent",
+]
+dependencies = ["rich", "soundfile"]
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov"]
+docs = ["importlib_metadata", "sphinx-rtd-theme", "myst-nb"] # TODO add python-semantic-release?
+build = ["flit", "python-semantic-release"]
+[project.urls]
+Documentation = "https://audioinfo.readthedocs.io/en/latest/"
+Source = "https://github.com/haoxiangsnr/audioinfo"
+[project.scripts]
+audioinfo = "audioinfo.main:main" # call the function main() imported from audioinfo
+
+# ----------------- Tools Configuration -----------------
+[tool.semantic_release]
+version_toml = "pyproject.toml:project.version" # version location
+branch = "main" # branch to make releases
+changelog_file = "CHANGELOG.md" # changelog file
+build_command = "flit build" # build dists
+upload_to_release = true # auto-create GitHub release
+upload_to_repository = false # don't auto-upload to PyPI
+remove_dist = false # don't remove dists
+patch_without_tag = false # patch release by default
+commit_author = "haoxiangsnr <haoxiangsnr@gmail.com>"
+commit_subject = "Release {version}"
+commit_message = "" # commit message

@@ -1,0 +1,108 @@
+name: CI_CD
+
+on: [ push, pull_request ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    # Define job steps
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Check-out repository
+        uses: actions/checkout@v3
+
+      - name: Install system build deps
+        run: sudo apt-get update -y && sudo apt-get install -y --no-install-recommends build-essential gcc libsndfile1
+
+      - name: Install build dependencies
+        run: pip install -e .[build]
+
+      - name: Install test dependencies
+        run: pip install -e .[test]
+
+      - name: Install local dependencies on editable mode
+        run: pip install -e .
+
+      - name: Test using pytest
+        run: pytest tests/ --cov=audioinfo --cov-report=xml
+
+      - name: Use Codecov to track coverage
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml # coverage report
+          token: ${{ secrets.CODECOV_TOKEN }} # Just for test
+          verbose: true
+
+  release:
+    # Only run this job if new work is pushed to "main"
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    # Define job steps
+    steps:
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Check-out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 0 indicates all history for all branches and tags.
+
+      - name: Install system build deps
+        run: sudo apt-get update -y && sudo apt-get install -y --no-install-recommends build-essential gcc libsndfile1
+
+      - name: Install build dependencies
+        run: pip install -e .[build]
+
+      - name: Install test dependencies
+        run: pip install -e .[test]
+
+      - name: Install local dependencies on editable mode
+        run: pip install -e .
+
+      - name: Build pypi package using Flit  # PSR may rebuild next time. For robustness of pipeline.
+        run: flit build
+
+      - name: Use Python Semantic Release to prepare release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          semantic-release publish
+
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+
+      - name: Test install from TestPyPI
+        run: |
+          pip install \
+          --index-url https://test.pypi.org/simple/ \
+          --extra-index-url https://pypi.org/simple \
+          audioinfo
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          skip_existing: true
