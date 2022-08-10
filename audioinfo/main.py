@@ -70,9 +70,9 @@ def duration_str(duration) -> str:
     hours, rest = divmod(duration, 3600)
     minutes, seconds = divmod(rest, 60)
     if hours >= 1:
-        duration = f"{hours:.0f}h {minutes:.0f}min {seconds:.3f}s"
+        duration = f"{hours:.0f}h {minutes:.0f}min {seconds:.2f}s"
     elif minutes >= 1:
-        duration = f"{minutes:.0f}min {seconds:.3f}s"
+        duration = f"{minutes:.0f}min {seconds:.2f}s"
     else:
         duration = f"{seconds:.2f}s"
     return duration
