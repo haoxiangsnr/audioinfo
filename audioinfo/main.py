@@ -72,7 +72,7 @@ def duration_str(duration) -> str:
     if hours >= 1:
         duration = f"{hours:.0f}h {minutes:.0f}min {seconds:.3f}s"
     elif minutes >= 1:
-        duration = "{0:02.0g}:{1:05.3f} min".format(minutes, seconds)
+        duration = f"{minutes:.0f}min {seconds:.3f}s"
     else:
         duration = f"{seconds:.2f}s"
     return duration
