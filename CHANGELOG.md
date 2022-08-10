@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.6 (2022-08-10)
+### Fix
+* Unify the float format to two decimals ([`d970f3a`](https://github.com/haoxiangsnr/audioinfo/commit/d970f3a4c6e0c95ec84f0ebcc0ab12bf5eb22508))
+
 ## v0.1.5 (2022-08-10)
 ### Fix
 * Wrong format of duration ([`f2762a0`](https://github.com/haoxiangsnr/audioinfo/commit/f2762a06e135c18ad33d2aa52a8d3de043217c06))
