@@ -21,10 +21,9 @@ classifiers = [
 dependencies = ["rich", "soundfile"]
 [project.optional-dependencies]
 test = ["pytest", "pytest-cov"]
-docs = ["importlib_metadata", "sphinx-rtd-theme", "myst-nb"] # TODO add python-semantic-release?
 build = ["flit", "python-semantic-release"]
 [project.urls]
-Documentation = "https://audioinfo.readthedocs.io/en/latest/"
+Documentation = "https://github.com/haoxiangsnr/audioinfo"
 Source = "https://github.com/haoxiangsnr/audioinfo"
 [project.scripts]
 audioinfo = "audioinfo.main:main" # call the function main() imported from audioinfo
