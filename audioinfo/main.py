@@ -73,7 +73,9 @@ def duration_str(duration):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        prog="audioinfo", description="A tool to check audio file durations in a directory."
+    )
     parser.add_argument(
         "--directory",
         "-d",
@@ -104,7 +106,11 @@ def main() -> None:
 
     print("Searching for files...")
     files = find_files(args.directory, args.ext, args.recurse, args.case_sensitive)
-    print(f"Finished searching for {len(files)} files")
+    print(f"Finished searching for {len(files)} files.")
+
+    if len(files) == 0:
+        print(f"No files found in {args.directory}, please check your arguments.")
+        return
 
     total_duration = 0.0
     for file in track(files, description="Analyzing files:"):
