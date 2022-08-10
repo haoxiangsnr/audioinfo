@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.3 (2022-08-10)
+### Fix
+* Remove doc build ([`be99020`](https://github.com/haoxiangsnr/audioinfo/commit/be99020939ecc405e240669c384d9a9c5868dec8))
+
 ## v0.1.2 (2022-08-10)
 ### Fix
 * Add default options ([`9921311`](https://github.com/haoxiangsnr/audioinfo/commit/9921311221e7767926ae9edf5ed6d29d0e824139))
