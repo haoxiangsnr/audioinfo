@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.4 (2022-08-10)
+### Fix
+* Test build ([`3ac8dc4`](https://github.com/haoxiangsnr/audioinfo/commit/3ac8dc4a2995db672a0d5b8a533ec113f54cfaaf))
+
 ## v0.1.3 (2022-08-10)
 ### Fix
 * Remove doc build ([`be99020`](https://github.com/haoxiangsnr/audioinfo/commit/be99020939ecc405e240669c384d9a9c5868dec8))
