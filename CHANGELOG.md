@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.5 (2022-08-10)
+### Fix
+* Wrong format of duration ([`f2762a0`](https://github.com/haoxiangsnr/audioinfo/commit/f2762a06e135c18ad33d2aa52a8d3de043217c06))
+
 ## v0.1.4 (2022-08-10)
 ### Fix
 * Test build ([`3ac8dc4`](https://github.com/haoxiangsnr/audioinfo/commit/3ac8dc4a2995db672a0d5b8a533ec113f54cfaaf))
