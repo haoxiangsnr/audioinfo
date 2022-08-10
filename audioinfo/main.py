@@ -1,12 +1,13 @@
 import argparse
 import glob
 import os
+from typing import Optional, Union
 
 import soundfile as sf
 from rich.progress import track
 
 
-def __get_files(dir_name, extensions):
+def __get_files(dir_name: str, extensions: Union[list[str], set[str]]) -> set[str]:
     """Helper function to get files in a single directory"""
 
     # Expand out the directory
@@ -21,7 +22,12 @@ def __get_files(dir_name, extensions):
     return files
 
 
-def find_files(directory, ext=None, recurse=True, case_sensitive=False):
+def find_files(
+    directory: str,
+    ext: Optional[Union[list, set]] = None,
+    recurse: Optional[bool] = True,
+    case_sensitive: Optional[bool] = False,
+) -> list[str]:
     """
     Find files in a directory.
 
@@ -60,7 +66,7 @@ def find_files(directory, ext=None, recurse=True, case_sensitive=False):
     return files
 
 
-def duration_str(duration):
+def duration_str(duration) -> str:
     hours, rest = divmod(duration, 3600)
     minutes, seconds = divmod(rest, 60)
     if hours >= 1:
