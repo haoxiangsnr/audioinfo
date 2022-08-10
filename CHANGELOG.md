@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.2 (2022-08-10)
+### Fix
+* Add default options ([`9921311`](https://github.com/haoxiangsnr/audioinfo/commit/9921311221e7767926ae9edf5ed6d29d0e824139))
+
 ## v0.1.1 (2022-08-10)
 ### Fix
 * Wrong release version ([`3acaab8`](https://github.com/haoxiangsnr/audioinfo/commit/3acaab87631e7b12a4cd887d74daee84a305e6b2))
