@@ -18,7 +18,7 @@ classifiers = [
     "Environment :: GPU :: NVIDIA CUDA",
     "Operating System :: OS Independent",
 ]
-dependencies = ["rich", "soundfile"]
+dependencies = ["soundfile", "numpy", "plotille", "rich"]
 [project.optional-dependencies]
 test = ["pytest", "pytest-cov"]
 build = ["flit", "python-semantic-release"]
