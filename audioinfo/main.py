@@ -3,6 +3,8 @@ import glob
 import os
 from typing import Optional, Union
 
+import numpy as np
+import plotille
 import soundfile as sf
 from rich.progress import track
 
@@ -25,7 +27,7 @@ def __get_files(dir_name: str, extensions: Union[list[str], set[str]]) -> set[st
 def find_files(
     directory: str,
     ext: Optional[Union[list, set]] = None,
-    recurse: Optional[bool] = True,
+    stop_recurse: Optional[bool] = True,
     case_sensitive: Optional[bool] = False,
 ) -> list[str]:
     """
@@ -34,7 +36,7 @@ def find_files(
     Args:
         directory (str): The directory to search.
         ext (str): The extension to search for.
-        recurse (bool): Whether to recurse into subdirectories.
+        stop_recurse (bool): Whether stop to recurse into subdirectories.
         case_sensitive (bool): Whether to do a case sensitive search.
     """
     if ext is None:
@@ -55,11 +57,11 @@ def find_files(
 
     files = set()
 
-    if recurse:
+    if stop_recurse:
+        files = __get_files(directory, ext)
+    else:
         for walk in os.walk(directory):
             files |= __get_files(walk[0], ext)
-    else:
-        files = __get_files(directory, ext)
 
     files = list(files)
     files.sort()
@@ -70,11 +72,11 @@ def duration_str(duration) -> str:
     hours, rest = divmod(duration, 3600)
     minutes, seconds = divmod(rest, 60)
     if hours >= 1:
-        duration = f"{hours:.0f}h {minutes:.0f}min {seconds:.2f}s"
+        duration = f"{hours:.0f} h {minutes:.0f} min {seconds:.2f} s"
     elif minutes >= 1:
-        duration = f"{minutes:.0f}min {seconds:.2f}s"
+        duration = f"{minutes:.0f} h {seconds:.2f} s"
     else:
-        duration = f"{seconds:.2f}s"
+        duration = f"{seconds:.2f} s"
     return duration
 
 
@@ -88,40 +90,41 @@ def main() -> None:
         "--directory",
         "-d",
         default="./",
-        help="The directory to search",
+        help="The directory to search.",
     )
     parser.add_argument(
         "--ext",
         "-e",
         nargs="+",
         default="wav",
-        help="The extension to search for",
+        help="The extension to search for, like 'wav' or 'mp3'.",
     )
     parser.add_argument(
-        "--recurse",
-        "-r",
-        default=True,
+        "--stop_recurse",
+        "-s",
+        default=False,
         action="store_true",
-        help="Recurse into subdirectories",
+        help="Stop to recurse into subdirectories.",
     )
     parser.add_argument(
-        "--case-sensitive",
+        "--case_sensitive",
         "-c",
         default=False,
         action="store_true",
-        help="Case sensitive search",
+        help="Case sensitive search.",
     )
     args = parser.parse_args()
 
     print("Searching for files...")
-    files = find_files(args.directory, args.ext, args.recurse, args.case_sensitive)
+    files = find_files(args.directory, args.ext, args.stop_recurse, args.case_sensitive)
     print(f"Finished searching for {len(files)} files.")
 
     if len(files) == 0:
-        print(f"No files found in {args.directory}, please check your arguments.")
-        return
+        raise ValueError(
+            f"No files with the suffix '{args.ext}' found in the directory '{args.directory}', please check your arguments."
+        )
 
-    total_duration = 0.0
+    tot = []
     for file in track(files, description="Analyzing files:"):
         with sf.SoundFile(file) as f:
             name = f.name
@@ -135,8 +138,10 @@ def main() -> None:
                 f"{name} - {samplerate} - {format} - # channels: {channels}, duration: {duration:.3f}s"
             )
 
-            total_duration += duration
+            tot.append(duration)
 
+    print("Drawing histgram...")
+    print(plotille.hist(tot))
     print(f"Total number of files: {len(files)}.")
-    print(f"Total duration: {duration_str(total_duration)}.")
-    print(f"Average duration: {duration_str(total_duration / len(files))}.")
+    print(f"Total duration: {duration_str(np.sum(tot))}.")
+    print(f"Average duration: {duration_str(np.mean(tot))}.")

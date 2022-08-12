@@ -15,18 +15,18 @@ Check the help with:
 ```bash
 $ audioinfo --help
 
-usage: audioinfo [-h] [--directory DIRECTORY] [--ext EXT [EXT ...]] [--recurse] [--case-sensitive]
+usage: audioinfo [-h] [--directory DIRECTORY] [--ext EXT [EXT ...]] [--stop_recurse] [--case_sensitive]
 
 A tool to check the durations of audio files in a directory.
 
 options:
   -h, --help            show this help message and exit
   --directory DIRECTORY, -d DIRECTORY
-                        The directory to search (default: ./)
+                        The directory to search. (default: ./)
   --ext EXT [EXT ...], -e EXT [EXT ...]
-                        The extension to search for (default: wav)
-  --recurse, -r         Recurse into subdirectories (default: True)
-  --case-sensitive, -c  Case sensitive search (default: False)
+                        The extension to search for, like 'wav' or 'mp3'. (default: wav)
+  --stop_recurse, -s    Stop to recurse into subdirectories. (default: False)
+  --case_sensitive, -c  Case sensitive search. (default: False)
 ```
 
 ## Examples
@@ -35,32 +35,31 @@ Check all audio files with the ".wav" in the current directory:
 
 ```bash
 audioinfo --directory ./ --ext wav
-```
 
-The default directory is the current directory and the default extension is ".wav". Therefore you may precisely omit these options, like this:
+# or use the short form of the arguments
+audioinfo -d ./ -e wav
 
-```bash
+# default directory is the current directory and the default extension is ".wav".
+# you may precisely omit these options, like this:
 audioinfo
 ```
 
 Check all audio files with the ".wav"  in the directory "~/Music":
 
 ```bash
-audioinfo --directory ~/Music --ext wav
-# or use the short form:
 audioinfo -d ~/Music -e wav
 ```
 
-Check all audio files with ".wav" and ".flac" suffixes in the directory "~/Music":
+Check all audio files with ".wav" or ".flac" suffixes in the directory "~/Music":
 
 ```bash
-audioinfo --directory ~/Music --ext wav flac
+audioinfo -d ~/Music -e wav flac
 ```
 
 Check audio files with the ".wav" suffix in the directory "~/Music" and do not recurse into subdirectories:
 
 ```bash
-audioinfo --directory ~/Music --ext wav --recurse=false
+audioinfo -d ~/Music -e wav -s
 ```
 
 
