@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.7 (2022-08-12)
+### Fix
+* Wrong logic in the bool arguments ([`bb0dba1`](https://github.com/haoxiangsnr/audioinfo/commit/bb0dba1e369ffc1ae8272a06c831951177e31da8))
+
 ## v0.1.6 (2022-08-10)
 ### Fix
 * Unify the float format to two decimals ([`d970f3a`](https://github.com/haoxiangsnr/audioinfo/commit/d970f3a4c6e0c95ec84f0ebcc0ab12bf5eb22508))
