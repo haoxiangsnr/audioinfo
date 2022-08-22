@@ -27,6 +27,7 @@ def __get_files(dir_name: str, extensions: Union[list[str], set[str]]) -> set[st
 def find_files(
     directory: str,
     ext: Optional[Union[list, set]] = None,
+    str_pattern: Optional[str] = None,
     stop_recurse: Optional[bool] = True,
     case_sensitive: Optional[bool] = False,
 ) -> list[str]:
@@ -65,6 +66,15 @@ def find_files(
 
     files = list(files)
     files.sort()
+
+    if str_pattern:
+        print(f"Filtering files using string pattern '{str_pattern}' ...")
+        tmp = []
+        for f in files:
+            if str_pattern in f:
+                tmp.append(f)
+        files = tmp
+
     return files
 
 
@@ -72,9 +82,9 @@ def duration_str(duration) -> str:
     hours, rest = divmod(duration, 3600)
     minutes, seconds = divmod(rest, 60)
     if hours >= 1:
-        duration = f"{hours:.0f} h {minutes:.0f} min {seconds:.2f} s"
+        duration = f"{hours:.0f} hr {minutes:.0f} min {seconds:.2f} s"
     elif minutes >= 1:
-        duration = f"{minutes:.0f} h {seconds:.2f} s"
+        duration = f"{minutes:.0f} min {seconds:.2f} s"
     else:
         duration = f"{seconds:.2f} s"
     return duration
@@ -113,10 +123,22 @@ def main() -> None:
         action="store_true",
         help="Case sensitive search.",
     )
+    parser.add_argument(
+        "--str_pattern",
+        "-p",
+        default=None,
+        help="String pattern to search for in the file name.",
+    )
     args = parser.parse_args()
 
     print("Searching for files...")
-    files = find_files(args.directory, args.ext, args.stop_recurse, args.case_sensitive)
+    files = find_files(
+        directory=args.directory,
+        ext=args.ext,
+        stop_recurse=args.stop_recurse,
+        case_sensitive=args.case_sensitive,
+        str_pattern=args.str_pattern,
+    )
     print(f"Finished searching for {len(files)} files.")
 
     if len(files) == 0:
