@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-08-22)
+### Feature
+* Support 'str_pattern' to filter valid path ([`2a3e2c4`](https://github.com/haoxiangsnr/audioinfo/commit/2a3e2c4dd26ab2224371ea5eeee60e2bc89bb8d0))
+
 ## v0.1.7 (2022-08-12)
 ### Fix
 * Wrong logic in the bool arguments ([`bb0dba1`](https://github.com/haoxiangsnr/audioinfo/commit/bb0dba1e369ffc1ae8272a06c831951177e31da8))
