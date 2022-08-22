@@ -15,7 +15,7 @@ Check the help with:
 ```bash
 $ audioinfo --help
 
-usage: audioinfo [-h] [--directory DIRECTORY] [--ext EXT [EXT ...]] [--stop_recurse] [--case_sensitive]
+usage: audioinfo [-h] [--directory DIRECTORY] [--ext EXT [EXT ...]] [--stop_recurse] [--case_sensitive] [--str_pattern STR_PATTERN]
 
 A tool to check the durations of audio files in a directory.
 
@@ -27,6 +27,8 @@ options:
                         The extension to search for, like 'wav' or 'mp3'. (default: wav)
   --stop_recurse, -s    Stop to recurse into subdirectories. (default: False)
   --case_sensitive, -c  Case sensitive search. (default: False)
+  --str_pattern STR_PATTERN, -p STR_PATTERN
+                        String pattern to search for in the file name. (default: None)
 ```
 
 ## Examples
@@ -62,7 +64,13 @@ Check audio files with the ".wav" suffix in the directory "~/Music" and do not r
 audioinfo -d ~/Music -e wav -s
 ```
 
-The results like this:
+Check the audio files whose string pattern is "y_rir" in the searched file path:
+
+```bash
+audioinfo -p y_rir
+```
+
+The results look like:
 
 ```
 /home/xhao/data/LibriSpeech/test-clean/908/157963/908-157963-0008.flac - 16000 - FLAC - # channels: 1, duration: 19.950s
