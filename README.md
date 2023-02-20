@@ -1,13 +1,19 @@
 # audioinfo
 
-A tool to check audio file durations in a directory.
+A small tool to recursively calculate the distribution of audio durations in a directory.
+
+![audioinfo](./doc/audioinfo.gif)
 
 ## Usage
 
-Install the audioinfo package with:
+Install the audioinfo package:
 
 ```bash
 pip install audioinfo
+
+# or
+
+pip3 install audioinfo
 ```
 
 Check the help with:
@@ -33,17 +39,16 @@ options:
 
 ## Examples
 
-Check all audio files with the ".wav" in the current directory:
+Recursively check all audio files with the ".wav" in the current directory:
 
 ```bash
+# Directly use the default options. Default directory is the current directory and the default extension is ".wav".
+audioinfo
+
 audioinfo --directory ./ --ext wav
 
 # or use the short form of the arguments
 audioinfo -d ./ -e wav
-
-# default directory is the current directory and the default extension is ".wav".
-# you may precisely omit these options, like this:
-audioinfo
 ```
 
 Check all audio files with the ".wav"  in the directory "~/Music":
