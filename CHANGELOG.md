@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2023-02-21)
+### Fix
+* Compatibility issues when <= Python3.8 ([`d7c26c8`](https://github.com/haoxiangsnr/audioinfo/commit/d7c26c875f1235bf80716b119a140eebdd9265e1))
+
 ## v0.2.0 (2022-08-22)
 ### Feature
 * Support 'str_pattern' to filter valid path ([`2a3e2c4`](https://github.com/haoxiangsnr/audioinfo/commit/2a3e2c4dd26ab2224371ea5eeee60e2bc89bb8d0))
