@@ -1,7 +1,7 @@
 import argparse
 import glob
 import os
-from typing import Optional, Union
+from typing import Optional, Union, List, Set
 
 import numpy as np
 import plotille
@@ -9,7 +9,7 @@ import soundfile as sf
 from rich.progress import track
 
 
-def __get_files(dir_name: str, extensions: Union[list[str], set[str]]) -> set[str]:
+def __get_files(dir_name: str, extensions: Union[List[str], Set[str]]) -> Set[str]:
     """Helper function to get files in a single directory"""
 
     # Expand out the directory
@@ -30,7 +30,7 @@ def find_files(
     str_pattern: Optional[str] = None,
     stop_recurse: Optional[bool] = True,
     case_sensitive: Optional[bool] = False,
-) -> list[str]:
+) -> List[str]:
     """
     Find files in a directory.
 
